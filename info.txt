@@ -1,0 +1,39 @@
+// VIDEO : https://www.youtube.com/watch?v=h0_W9xBsNWc :: 40:59
+
+// http://localhost:4242/graphql
+mutation articleCreate {
+  articleCreate(input: {
+    title: "Bonjour 2",
+    description: "Mon Suject 2",
+    image: "https://images.unsplash.com/photo-1668093375941-ccfe6c34c89c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  }) {
+    article {
+    	id
+    	title
+    	description
+  	}
+  }
+}
+
+
+mutation articleUpdate {
+  articleUpdate(
+    articleId: "61ebc25f-5eb9-406f-8957-e31d61354596",
+    input: {
+    title: "Bonjour 2 (updated)",
+    description: "Mon Suject 2 (updated)",
+    image: "https://images.unsplash.com/photo-1668093375941-ccfe6c34c89c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  }) {
+    article {
+    	id
+    	title
+    	description
+  	}
+  }
+}
+
+mutation articleDelete {
+  articleDelete(articleId: "61ebc25f-5eb9-406f-8957-e31d61354596") {
+    articleId
+  }
+}
