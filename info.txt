@@ -1,4 +1,4 @@
-// VIDEO : https://www.youtube.com/watch?v=h0_W9xBsNWc :: 40:59 :: 56
+// VIDEO : https://www.youtube.com/watch?v=h0_W9xBsNWc :: 40:59 :: 56 :: 01:24
 
 // http://localhost:4242/graphql
 mutation articleCreate {
@@ -50,3 +50,9 @@ query getAllArticles {
     }
   }
 }
+
+
+
+DTO = Object ou params que je vais envoyé à mon service pour enregistrer en DB
+
+models = construction du model de création de la table
