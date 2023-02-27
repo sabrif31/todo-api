@@ -7,11 +7,13 @@ import { AuthService } from './auth.service';
 import { UserModule } from 'src/user/user.module';
 import { LocalStrategy } from './strategies/local.strategy';
 import { AuthMutationsResolver } from './resolvers/auth.mutations.resolver';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
     UserModule,
     PassportModule,
+    ConfigModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -21,6 +23,6 @@ import { AuthMutationsResolver } from './resolvers/auth.mutations.resolver';
       }),
     }),
   ],
-  providers: [AuthService, AuthMutationsResolver, LocalStrategy],
+  providers: [AuthService, AuthMutationsResolver, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}
