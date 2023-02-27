@@ -1,10 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+
 import { User } from 'src/user/models/user.model';
 import { UserService } from 'src/user/user.service';
 
+export interface JWTPayload {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private jwtService: JwtService,
+  ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.userService.userGet(email);
@@ -17,8 +29,14 @@ export class AuthService {
   }
 
   async login(user: User) {
+    const payload: JWTPayload = {
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    };
     return {
-      accessToken: 'fake-token', // this.jwtService.sign(payload)
+      accessToken: this.jwtService.sign(payload),
     };
   }
 }
