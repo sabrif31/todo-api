@@ -1,4 +1,4 @@
-// VIDEO : https://www.youtube.com/watch?v=h0_W9xBsNWc :: 40:59
+// VIDEO : https://www.youtube.com/watch?v=h0_W9xBsNWc :: 40:59 :: 56
 
 // http://localhost:4242/graphql
 mutation articleCreate {
@@ -35,5 +35,18 @@ mutation articleUpdate {
 mutation articleDelete {
   articleDelete(articleId: "61ebc25f-5eb9-406f-8957-e31d61354596") {
     articleId
+  }
+}
+
+query getAllArticles {
+  articlesPagination(skip: 0, take: 2, sortBy: { createdAt: DESC }) {
+    totalCount
+    nodes {
+      createdAt
+      id
+      title
+      description
+      image
+    }
   }
 }
