@@ -13,6 +13,16 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type User {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String!
+  firstName: String!
+  lastName: String!
+  avatar: String
+}
+
 type Article {
   id: ID!
   createdAt: DateTime!
@@ -20,6 +30,7 @@ type Article {
   title: String!
   description: String!
   image: String!
+  author: User
 }
 
 type ArticleCreateOutput {
@@ -37,16 +48,6 @@ type ArticleDeleteOutput {
 type ArticlesPagination {
   totalCount: Float!
   nodes: [Article!]!
-}
-
-type User {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  email: String!
-  firstName: String!
-  lastName: String!
-  avatar: String
 }
 
 type UserCreateOutput {
@@ -76,8 +77,8 @@ type Mutation {
   articleCreate(input: ArticleCreateInput!): ArticleCreateOutput!
   articleUpdate(articleId: ID!, input: ArticleUpdateInput!): ArticleUpdateOutput!
   articleDelete(articleId: ID!): ArticleDeleteOutput!
-  authLogin(username: String!, password: String!): AuthLoginOutput!
   userCreate(input: UserCreateInput!): UserCreateOutput!
+  authLogin(username: String!, password: String!): AuthLoginOutput!
 }
 
 input ArticleCreateInput {
