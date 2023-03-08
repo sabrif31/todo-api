@@ -61,6 +61,10 @@ export class ArticleService {
     return { articleId };
   }
 
+  async articleGetById(articleId: Article['id']): Promise<Article> {
+    return await this.articleRepository.findOneOrFail(articleId);
+  }
+
   async articlesPagination(
     args: ArticlesPaginationArgs,
   ): Promise<ArticlesPagination> {

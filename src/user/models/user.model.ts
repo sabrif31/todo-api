@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Article } from 'src/article/models/article.model';
+import { Comment } from 'src/comment/models/comment.model';
 import { Node } from 'src/pagination/models/node.model';
 import { Column, Entity, OneToMany } from 'typeorm';
 
@@ -28,4 +29,8 @@ export class User extends Node {
   // Il peut y avoir plusieurs articles pour un utilisateur
   @OneToMany(() => Article, (target) => target.author)
   articles: Article[];
+
+  // Il peut y avoir plusieurs commentaires pour un utilisateur
+  @OneToMany(() => Comment, (target) => target.author)
+  comments: Comment[];
 }

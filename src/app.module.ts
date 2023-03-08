@@ -10,6 +10,10 @@ import { AppService } from './app.service';
 import { ArticleModule } from './article/article.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { CommentModule } from './comment/comment.module';
+import { SectorModule } from './sector/sector.module';
+import { CategoryModule } from './category/category.module';
+import { ActivityModule } from './activity/activity.module';
 
 @Module({
   imports: [
@@ -28,13 +32,20 @@ import { UserModule } from './user/user.module';
         username: configService.get('DATABASE_USER'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_DB'),
-        entities: [join(__dirname, '**', '*.model.{ts,js}')],
+        entities: [
+          join(__dirname, '**', '*.model.{ts,js}'),
+          join(__dirname, '**', '*.entity.{ts,js}'),
+        ],
         synchronize: true, // True DEV
       }),
     }),
     ArticleModule,
     AuthModule,
     UserModule,
+    CommentModule,
+    SectorModule,
+    CategoryModule,
+    ActivityModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

@@ -23,6 +23,12 @@ type User {
   avatar: String
 }
 
+type Comment {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Article {
   id: ID!
   createdAt: DateTime!
@@ -58,9 +64,48 @@ type AuthLoginOutput {
   accessToken: String!
 }
 
+type CommentCreateOutput {
+  comment: Comment
+}
+
+type Category {
+  id: ID!
+  name: String!
+  activities: [Activity!]
+}
+
+type Activity {
+  id: ID!
+  name: String!
+  category: Category
+  sector: Sector
+}
+
+type Sector {
+  id: ID!
+  name: String!
+  activities: [Activity!]
+}
+
+type SectorCreateOutput {
+  sector: Sector!
+}
+
+type CategoryCreateOutput {
+  category: Category
+}
+
+type ActivityCreateOutput {
+  activity: Activity
+}
+
 type Query {
   sayHello: String!
   articlesPagination(skip: Int!, take: Int!, sortBy: ArticlesPaginationSortBy): ArticlesPagination!
+  sectorList: [Sector!]!
+  categoryList: [Category!]!
+  getActivityById(id: String!): Activity!
+  getActivities: [Activity!]!
 }
 
 input ArticlesPaginationSortBy {
@@ -79,6 +124,10 @@ type Mutation {
   articleDelete(articleId: ID!): ArticleDeleteOutput!
   userCreate(input: UserCreateInput!): UserCreateOutput!
   authLogin(username: String!, password: String!): AuthLoginOutput!
+  commentCreate(input: CommentCreateInput!): CommentCreateOutput!
+  sectorCreate(input: SectorCreateInput!): SectorCreateOutput!
+  categoryCreate(input: CategoryCreateInput!): CategoryCreateOutput!
+  activityCreate(input: ActivityCreateInput!): ActivityCreateOutput!
 }
 
 input ArticleCreateInput {
@@ -99,4 +148,23 @@ input UserCreateInput {
   email: String!
   password: String!
   avatar: String
+}
+
+input CommentCreateInput {
+  articleId: String!
+  message: String!
+}
+
+input SectorCreateInput {
+  name: String!
+}
+
+input CategoryCreateInput {
+  name: String!
+}
+
+input ActivityCreateInput {
+  categoryId: String!
+  sectorId: String!
+  name: String!
 }

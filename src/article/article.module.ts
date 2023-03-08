@@ -16,5 +16,6 @@ import { UserModule } from 'src/user/user.module';
     ArticleQueriesResolver,
     ArticleFieldsResolver,
   ],
+  exports: [ArticleService],
 })
 export class ArticleModule {}
