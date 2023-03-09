@@ -70,6 +70,8 @@ type CommentCreateOutput {
 
 type Category {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   activities: [Activity!]
 }
@@ -95,20 +97,25 @@ type CategoryCreateOutput {
   category: Category
 }
 
+type CategoriesPagination {
+  totalCount: Float!
+  nodes: [Category!]!
+}
+
 type ActivityCreateOutput {
   activity: Activity
 }
 
 type Query {
   sayHello: String!
-  articlesPagination(skip: Int!, take: Int!, sortBy: ArticlesPaginationSortBy): ArticlesPagination!
+  articlesPagination(skip: Int!, take: Int!, sortBy: CategoriesPaginationSortBy): CategoriesPagination!
   sectorList: [Sector!]!
   categoryList: [Category!]!
   getActivityById(id: String!): Activity!
   getActivities: [Activity!]!
 }
 
-input ArticlesPaginationSortBy {
+input CategoriesPaginationSortBy {
   createdAt: SortDirection
   title: SortDirection
 }

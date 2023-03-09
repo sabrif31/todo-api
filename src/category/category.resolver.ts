@@ -5,6 +5,10 @@ import {
   CategoryCreateOutput,
 } from './dto/category.create.dto';
 import { Category } from './entities/category.entity';
+import {
+  CategoriesPagination,
+  CategoriesPaginationArgs,
+} from './dto/category-pagination.dto';
 
 @Resolver(Category)
 export class CategoryResolver {
@@ -18,6 +22,11 @@ export class CategoryResolver {
   @Query(() => [Category])
   async categoryList() {
     return this.categoryService.categoryList();
+  }
+
+  @Query(() => CategoriesPagination)
+  async articlesPagination(@Args() args: CategoriesPaginationArgs) {
+    return this.categoryService.categoriesPagination(args);
   }
   /*
   @Query('category')

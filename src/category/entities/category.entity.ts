@@ -1,8 +1,8 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Activity } from 'src/activity/entities/activity.entity';
+import { Node } from 'src/pagination/models/node.model';
 // import { Sector } from 'src/sector/entities/sector.entity';
 import {
-  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -14,7 +14,7 @@ import {
 
 @Entity()
 @ObjectType()
-export class Category extends BaseEntity {
+export class Category extends Node {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
