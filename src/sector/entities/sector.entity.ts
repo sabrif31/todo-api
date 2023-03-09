@@ -4,11 +4,12 @@ import { Activity } from 'src/activity/entities/activity.entity';
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
-  RelationId,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -33,12 +34,17 @@ export class Sector extends BaseEntity {
   */
 
   @Field(() => [Activity], { nullable: true })
-  @OneToMany(() => Activity, (activity) => activity.sector)
+  @OneToMany(() => Activity, (activity) => activity.sector, {
+    onDelete: 'CASCADE',
+    nullable: true,
+  })
   @JoinColumn({ name: 'activityId' })
   activities: Activity[];
 
+  /*
   @RelationId((self: Sector) => self.activities)
   readonly activityId: Activity['id'];
+  */
 
   /*
   @Field(() => [Activity], { nullable: true })
@@ -49,4 +55,10 @@ export class Sector extends BaseEntity {
   @JoinColumn()
   activities?: Activity[];
   */
+
+  @CreateDateColumn()
+  created!: Date;
+
+  @UpdateDateColumn()
+  updated!: Date;
 }

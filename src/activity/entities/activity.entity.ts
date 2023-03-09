@@ -9,7 +9,6 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  RelationId,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -26,25 +25,29 @@ export class Activity extends BaseEntity {
 
   @Field(() => Category, { nullable: true })
   @ManyToOne(() => Category, (category) => category.activities, {
+    onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
     nullable: true,
   })
   @JoinColumn({ name: 'categoryId' })
   category: Category;
-
+  /*
   @RelationId((self: Activity) => self.category)
   readonly categoryId: Category['id'];
+  */
 
   @Field(() => Sector, { nullable: true })
   @ManyToOne(() => Sector, (sector) => sector.activities, {
+    onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
     nullable: true,
   })
   @JoinColumn({ name: 'sectorId' })
   sector: Sector;
-
+  /*
   @RelationId((self: Activity) => self.sector)
   readonly sectorId: Sector['id'];
+  */
 
   /*
   @Field(() => [Sector], { nullable: true })

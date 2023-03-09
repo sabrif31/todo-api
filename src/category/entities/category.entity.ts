@@ -33,9 +33,10 @@ export class Category extends BaseEntity {
   @JoinColumn()
   activities?: Activity[];
 
+  /*
   @RelationId((self: Category) => self.activities)
   readonly activityId?: Activity['id'];
-
+  */
   /*
   @ManyToOne(() => Sector, (sector) => sector.categories)
   @JoinColumn()
