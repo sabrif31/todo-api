@@ -11,6 +11,7 @@ import {
   CategoriesPaginationArgs,
 } from './dto/category-pagination.dto';
 import { SortDirection } from 'src/pagination/dto/pagination.dto';
+import { Activity } from 'src/activity/entities/activity.entity';
 // import { SectorService } from 'src/sector/sector.service';
 
 @Injectable()
@@ -43,36 +44,26 @@ export class CategoryService {
   async categoriesPagination(
     args: CategoriesPaginationArgs,
   ): Promise<CategoriesPagination> {
-    /*
-    const [nodes, totalCount] = await this.articleRepository.findAndCount({
-      skip: args.skip,
-      take: args.take,
-      order: {
-        createdAt:
-          args.sortBy?.createdAt === SortDirection.ASC ? 'ASC' : 'DESC',
-        title: args.sortBy?.title === SortDirection.ASC ? 'ASC' : 'DESC',
-      },
-    });
-    return { nodes, totalCount };
-    */
     const qb = this.categoryRepository.createQueryBuilder('category');
     qb.take(args.take);
     qb.skip(args.skip);
     if (args.sortBy) {
       if (args.sortBy.createdAt !== null) {
         qb.addOrderBy(
-          'article.createdAt',
+          'category.createdAt',
           args.sortBy.createdAt === SortDirection.ASC ? 'ASC' : 'DESC',
         );
       }
-      if (args.sortBy.title !== null) {
+      if (args.sortBy.name !== null) {
         qb.addOrderBy(
-          'article.title',
-          args.sortBy.title === SortDirection.ASC ? 'ASC' : 'DESC',
+          'category.name',
+          args.sortBy.name === SortDirection.ASC ? 'ASC' : 'DESC',
         );
       }
       // Add search by filter text
     }
+    // qb.relation('activity'); // .of('category').add('activity');
+    qb.leftJoinAndSelect('category.activities', 'activity');
     const [nodes, totalCount] = await qb.getManyAndCount();
     return { nodes, totalCount };
   }

@@ -25,7 +25,7 @@ export class CategoryResolver {
   }
 
   @Query(() => CategoriesPagination)
-  async articlesPagination(@Args() args: CategoriesPaginationArgs) {
+  async categoriesPagination(@Args() args: CategoriesPaginationArgs) {
     return this.categoryService.categoriesPagination(args);
   }
   /*

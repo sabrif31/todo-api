@@ -25,6 +25,7 @@ export class Category extends Node {
 
   @Field(() => [Activity], { nullable: true })
   @OneToMany(() => Activity, (activity) => activity.category, {
+    onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
     nullable: true,
   })

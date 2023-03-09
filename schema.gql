@@ -108,14 +108,15 @@ type ActivityCreateOutput {
 
 type Query {
   sayHello: String!
-  articlesPagination(skip: Int!, take: Int!, sortBy: CategoriesPaginationSortBy): CategoriesPagination!
+  articlesPagination(skip: Int!, take: Int!, sortBy: ArticlesPaginationSortBy): ArticlesPagination!
   sectorList: [Sector!]!
   categoryList: [Category!]!
+  categoriesPagination(skip: Int!, take: Int!, sortBy: CategoriesPaginationSortBy): CategoriesPagination!
   getActivityById(id: String!): Activity!
   getActivities: [Activity!]!
 }
 
-input CategoriesPaginationSortBy {
+input ArticlesPaginationSortBy {
   createdAt: SortDirection
   title: SortDirection
 }
@@ -123,6 +124,11 @@ input CategoriesPaginationSortBy {
 enum SortDirection {
   ASC
   DESC
+}
+
+input CategoriesPaginationSortBy {
+  createdAt: SortDirection
+  name: SortDirection
 }
 
 type Mutation {

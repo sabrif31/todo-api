@@ -10,7 +10,7 @@ import { Category } from '../entities/category.entity';
 @InputType()
 export class CategoriesPaginationSortBy extends PaginationSortBy {
   @Field(() => SortDirection, { nullable: true })
-  title?: SortDirection;
+  name?: SortDirection;
 }
 
 @ArgsType()
