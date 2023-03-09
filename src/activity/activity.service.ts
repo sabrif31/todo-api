@@ -26,7 +26,7 @@ export class ActivityService {
     );
     const sector = await this.sectorService.sectorGetById(input.sectorId);
     const activity = this.activityRepository.create(input);
-    // activity.category = category;
+    activity.category = category;
     activity.sector = sector;
     activity.name = input.name;
     await activity.save();
