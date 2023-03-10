@@ -78,6 +78,8 @@ type Category {
 
 type Activity {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   category: Category
   sector: Sector
@@ -106,6 +108,11 @@ type ActivityCreateOutput {
   activity: Activity
 }
 
+type ActivitiesPagination {
+  totalCount: Float!
+  nodes: [Activity!]!
+}
+
 type Query {
   sayHello: String!
   articlesPagination(skip: Int!, take: Int!, sortBy: ArticlesPaginationSortBy): ArticlesPagination!
@@ -114,6 +121,7 @@ type Query {
   categoriesPagination(skip: Int!, take: Int!, sortBy: CategoriesPaginationSortBy): CategoriesPagination!
   getActivityById(id: String!): Activity!
   getActivities: [Activity!]!
+  activitiesPagination(skip: Int!, take: Int!, sortBy: ActivitiesPaginationSortBy): ActivitiesPagination!
 }
 
 input ArticlesPaginationSortBy {
@@ -127,6 +135,11 @@ enum SortDirection {
 }
 
 input CategoriesPaginationSortBy {
+  createdAt: SortDirection
+  name: SortDirection
+}
+
+input ActivitiesPaginationSortBy {
   createdAt: SortDirection
   name: SortDirection
 }

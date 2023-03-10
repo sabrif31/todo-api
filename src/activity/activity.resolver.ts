@@ -5,6 +5,10 @@ import {
   ActivityCreateOutput,
 } from './dto/activity.create.dto';
 import { Activity } from './entities/activity.entity';
+import {
+  ActivitiesPagination,
+  ActivitiesPaginationArgs,
+} from './dto/activity-pagination.dto';
 
 @Resolver(Activity)
 export class ActivityResolver {
@@ -23,6 +27,11 @@ export class ActivityResolver {
   @Query(() => [Activity])
   async getActivities() {
     return this.activityService.getActivities();
+  }
+
+  @Query(() => ActivitiesPagination)
+  async activitiesPagination(@Args() args: ActivitiesPaginationArgs) {
+    return this.activityService.activitiesPagination(args);
   }
   /*
   @Mutation('createActivity')

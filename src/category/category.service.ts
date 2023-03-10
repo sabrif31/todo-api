@@ -11,7 +11,6 @@ import {
   CategoriesPaginationArgs,
 } from './dto/category-pagination.dto';
 import { SortDirection } from 'src/pagination/dto/pagination.dto';
-import { Activity } from 'src/activity/entities/activity.entity';
 // import { SectorService } from 'src/sector/sector.service';
 
 @Injectable()

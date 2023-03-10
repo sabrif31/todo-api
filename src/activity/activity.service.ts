@@ -8,6 +8,11 @@ import {
   ActivityCreateOutput,
 } from './dto/activity.create.dto';
 import { SectorService } from 'src/sector/sector.service';
+import { SortDirection } from 'src/pagination/dto/pagination.dto';
+import {
+  ActivitiesPagination,
+  ActivitiesPaginationArgs,
+} from './dto/activity-pagination.dto';
 
 @Injectable()
 export class ActivityService {
@@ -42,25 +47,31 @@ export class ActivityService {
   async getActivities(): Promise<Activity[]> {
     return this.activityRepository.find({ relations: ['category', 'sector'] });
   }
-  /*
-  create(createActivityInput: CreateActivityInput) {
-    return 'This action adds a new activity';
-  }
 
-  findAll() {
-    return `This action returns all activity`;
+  async activitiesPagination(
+    args: ActivitiesPaginationArgs,
+  ): Promise<ActivitiesPagination> {
+    const qb = this.activityRepository.createQueryBuilder('activity');
+    qb.take(args.take);
+    qb.skip(args.skip);
+    if (args.sortBy) {
+      if (args.sortBy.createdAt !== null) {
+        qb.addOrderBy(
+          'activity.createdAt',
+          args.sortBy.createdAt === SortDirection.ASC ? 'ASC' : 'DESC',
+        );
+      }
+      if (args.sortBy.name !== null) {
+        qb.addOrderBy(
+          'activity.name',
+          args.sortBy.name === SortDirection.ASC ? 'ASC' : 'DESC',
+        );
+      }
+      // Add search by filter text
+    }
+    // qb.relation('activity'); // .of('category').add('activity');
+    qb.leftJoinAndSelect('activity.category', 'category');
+    const [nodes, totalCount] = await qb.getManyAndCount();
+    return { nodes, totalCount };
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} activity`;
-  }
-
-  update(id: number, updateActivityInput: UpdateActivityInput) {
-    return `This action updates a #${id} activity`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} activity`;
-  }
-  */
 }
